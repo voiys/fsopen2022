@@ -1,14 +1,10 @@
 import React from "react";
 
-const Total = ({props}) => {
+const Total = ({ props }) => {
+  const total = props.course.parts.reduce((s, p) => (s += p.exercises), 0);
   return (
     <>
-      <p>
-        Number of exercises {" "}
-        { props.course.parts[0].exercises +
-          props.course.parts[1].exercises +
-          props.course.parts[2].exercises}
-      </p>
+      <p>Number of exercises {total}</p>
     </>
   );
 };
