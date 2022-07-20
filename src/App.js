@@ -1,17 +1,24 @@
 import { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas", id: 1 }]);
+  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
 
   const addPerson = (e) => {
     e.preventDefault();
-    const personObject = {
+    if (checkIfExists()) {
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
+    const newPerson = {
       name: newName,
-      id: persons.length + 1,
     };
-    setPersons(persons.concat(personObject));
+    setPersons(persons.concat(newPerson));
     setNewName("");
+  };
+
+  const checkIfExists = () => {
+    return persons.some((person) => person.name === newName);
   };
 
   return (
@@ -28,7 +35,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       {persons.map((person) => (
-        <p key={person.id}>{person.name}</p>
+        <p key={person.name}>{person.name}</p>
       ))}
     </div>
   );
